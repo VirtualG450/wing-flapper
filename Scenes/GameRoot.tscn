@@ -1,0 +1,202 @@
+[gd_scene format=3 uid="uid://cxpqmy7cfpy0i"]
+
+[ext_resource type="Texture2D" uid="uid://bdsaxr2aq7x4e" path="res://Assets/Berry.png" id="1_awmvw"]
+[ext_resource type="Texture2D" uid="uid://drhn5tl7wuopk" path="res://Assets/Bird.png" id="1_rqi4g"]
+[ext_resource type="Texture2D" uid="uid://bttcpydnxkwb2" path="res://Assets/PlayButton.png" id="2_gk1q0"]
+[ext_resource type="Texture2D" uid="uid://ba28moah8yi2d" path="res://Assets/Floors/FarmFloor.png" id="2_hyb4l"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hyb4l"]
+atlas = ExtResource("1_rqi4g")
+region = Rect2(0, 0, 64, 32)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hyb4l"]
+size = Vector2(58, 22)
+
+[sub_resource type="Gradient" id="Gradient_rqi4g"]
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_hyb4l"]
+gradient = SubResource("Gradient_rqi4g")
+width = 32
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_i88v6"]
+size = Vector2(32, 96)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_awmvw"]
+size = Vector2(640, 32)
+
+[node name="GameRoot" type="Node2D" unique_id=1650920252]
+
+[node name="HUD" type="CanvasLayer" parent="." unique_id=94042630]
+
+[node name="Control" type="Control" parent="HUD" unique_id=639387995]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ScoreSection" type="MarginContainer" parent="HUD/Control" unique_id=312326136]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -32.0
+offset_right = 32.0
+offset_bottom = 31.0
+grow_horizontal = 2
+theme_override_constants/margin_top = 8
+
+[node name="PanelContainer" type="PanelContainer" parent="HUD/Control/ScoreSection" unique_id=770243453]
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HUD/Control/ScoreSection/PanelContainer" unique_id=81927817]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="TextureRect" type="TextureRect" parent="HUD/Control/ScoreSection/PanelContainer/HBoxContainer" unique_id=1338633450]
+custom_minimum_size = Vector2(18, 19)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("1_awmvw")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="PointCounter" type="Label" parent="HUD/Control/ScoreSection/PanelContainer/HBoxContainer" unique_id=1544615451]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(64, 16)
+layout_mode = 2
+text = "999"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="GameOverPanel" type="PanelContainer" parent="HUD/Control" unique_id=1337244095]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(128, 0)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -64.0
+offset_top = -38.0
+offset_right = 64.0
+offset_bottom = 38.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="HUD/Control/GameOverPanel" unique_id=573473388]
+layout_mode = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HUD/Control/GameOverPanel/MarginContainer" unique_id=1811995767]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HUD/Control/GameOverPanel/MarginContainer/VBoxContainer" unique_id=1474336438]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="HUD/Control/GameOverPanel/MarginContainer/VBoxContainer/HBoxContainer" unique_id=503674544]
+custom_minimum_size = Vector2(26, 27)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("1_awmvw")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="GameOverScore" type="Label" parent="HUD/Control/GameOverPanel/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1012917071]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+text = "9999"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="HUD/Control/GameOverPanel/MarginContainer/VBoxContainer" unique_id=260393991]
+layout_mode = 2
+theme_override_constants/separation = 1
+
+[node name="ReplayButton" type="Button" parent="HUD/Control/GameOverPanel/MarginContainer/VBoxContainer" unique_id=2072262368]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+size_flags_vertical = 4
+icon = ExtResource("2_gk1q0")
+icon_alignment = 1
+expand_icon = true
+
+[node name="AreaSky" type="Parallax2D" parent="." unique_id=524857297]
+repeat_size = Vector2(640, 0)
+repeat_times = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="AreaSky" unique_id=1681298798]
+centered = false
+
+[node name="AreaFarDetails" type="Parallax2D" parent="." unique_id=1840295981]
+repeat_size = Vector2(640, 0)
+repeat_times = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="AreaFarDetails" unique_id=1490180824]
+
+[node name="AreaCloseDetails" type="Parallax2D" parent="." unique_id=119477287]
+repeat_size = Vector2(640, 0)
+repeat_times = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="AreaCloseDetails" unique_id=1889126040]
+
+[node name="Bird" type="CharacterBody2D" parent="." unique_id=751255335]
+position = Vector2(64, 160)
+collision_layer = 3
+collision_mask = 3
+motion_mode = 1
+
+[node name="Body" type="Sprite2D" parent="Bird" unique_id=1234577315]
+texture = SubResource("AtlasTexture_hyb4l")
+
+[node name="Hitbox" type="CollisionShape2D" parent="Bird" unique_id=1606612235]
+shape = SubResource("RectangleShape2D_hyb4l")
+
+[node name="WallManager" type="Node2D" parent="." unique_id=1948477031]
+
+[node name="Wall1" type="StaticBody2D" parent="WallManager" unique_id=916139757 groups=["Walls"]]
+position = Vector2(640, 160)
+
+[node name="WallSprite" type="Sprite2D" parent="WallManager/Wall1" unique_id=187182178]
+texture = SubResource("GradientTexture2D_hyb4l")
+
+[node name="TopHitbox" type="CollisionShape2D" parent="WallManager/Wall1" unique_id=1539289768]
+shape = SubResource("RectangleShape2D_i88v6")
+
+[node name="Floor" type="StaticBody2D" parent="." unique_id=165317536]
+unique_name_in_owner = true
+position = Vector2(320, 304)
+collision_mask = 0
+
+[node name="Parallax2D" type="Parallax2D" parent="Floor" unique_id=1953936357]
+repeat_size = Vector2(640, 0)
+autoscroll = Vector2(-200, 0)
+repeat_times = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="Floor/Parallax2D" unique_id=1233289217]
+texture = ExtResource("2_hyb4l")
+
+[node name="FlootHitbox" type="CollisionShape2D" parent="Floor" unique_id=1387019897]
+shape = SubResource("RectangleShape2D_awmvw")
+
+[node name="CeilingHitbox" type="CollisionShape2D" parent="Floor" unique_id=1697140347]
+position = Vector2(0, -320)
+shape = SubResource("RectangleShape2D_awmvw")
+
+[node name="AreaDecor" type="Parallax2D" parent="." unique_id=1073398869]
+repeat_size = Vector2(640, 0)
+repeat_times = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="AreaDecor" unique_id=918945086]
