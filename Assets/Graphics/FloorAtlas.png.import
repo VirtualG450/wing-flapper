@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://drhn5tl7wuopk"
-path="res://.godot/imported/Bird.png-003c5583b3d7db2160c15c2729203a68.ctex"
+uid="uid://dwuo17ot1xbh2"
+path="res://.godot/imported/FloorAtlas.png-43e77e392ebf60618b650b261737bff0.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Bird.png"
-dest_files=["res://.godot/imported/Bird.png-003c5583b3d7db2160c15c2729203a68.ctex"]
+source_file="res://Assets/Graphics/FloorAtlas.png"
+dest_files=["res://.godot/imported/FloorAtlas.png-43e77e392ebf60618b650b261737bff0.ctex"]
 
 [params]
 

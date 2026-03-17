@@ -1,13 +1,26 @@
 [gd_scene format=3 uid="uid://cxpqmy7cfpy0i"]
 
-[ext_resource type="Texture2D" uid="uid://bdsaxr2aq7x4e" path="res://Assets/Berry.png" id="1_awmvw"]
-[ext_resource type="Texture2D" uid="uid://drhn5tl7wuopk" path="res://Assets/Bird.png" id="1_rqi4g"]
-[ext_resource type="Texture2D" uid="uid://bttcpydnxkwb2" path="res://Assets/PlayButton.png" id="2_gk1q0"]
-[ext_resource type="Texture2D" uid="uid://ba28moah8yi2d" path="res://Assets/Floors/FarmFloor.png" id="2_hyb4l"]
+[ext_resource type="Script" uid="uid://uinh0cbcxj24" path="res://Script/game_root.gd" id="1_aob1w"]
+[ext_resource type="Texture2D" uid="uid://bdsaxr2aq7x4e" path="res://Assets/Graphics/Berry.png" id="1_awmvw"]
+[ext_resource type="Texture2D" uid="uid://drhn5tl7wuopk" path="res://Assets/Graphics/Bird.png" id="1_rqi4g"]
+[ext_resource type="Script" uid="uid://bpdl3gbhopbks" path="res://Script/hud.gd" id="2_58i56"]
+[ext_resource type="Texture2D" uid="uid://bttcpydnxkwb2" path="res://Assets/Graphics/PlayButton.png" id="2_gk1q0"]
+[ext_resource type="Texture2D" uid="uid://csg03y1ntlv32" path="res://Assets/Graphics/SkyAtlas.png" id="3_2m18y"]
+[ext_resource type="Texture2D" uid="uid://ckgihqhfnndih" path="res://Assets/Graphics/FarDetailsAtlas.png" id="4_7vkth"]
+[ext_resource type="Texture2D" uid="uid://dwuo17ot1xbh2" path="res://Assets/Graphics/FloorAtlas.png" id="4_gk1q0"]
+[ext_resource type="Script" uid="uid://bbj4k3asr6vwe" path="res://Script/bird.gd" id="5_o8ewf"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qwuey"]
+atlas = ExtResource("3_2m18y")
+region = Rect2(0, 0, 640, 320)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_aob1w"]
+atlas = ExtResource("4_7vkth")
+region = Rect2(0, 0, 640, 320)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_hyb4l"]
 atlas = ExtResource("1_rqi4g")
-region = Rect2(0, 0, 64, 32)
+region = Rect2(64, 0, 64, 32)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hyb4l"]
 size = Vector2(58, 22)
@@ -21,12 +34,18 @@ width = 32
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_i88v6"]
 size = Vector2(32, 96)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_2m18y"]
+atlas = ExtResource("4_gk1q0")
+region = Rect2(0, 0, 640, 32)
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_awmvw"]
 size = Vector2(640, 32)
 
 [node name="GameRoot" type="Node2D" unique_id=1650920252]
+script = ExtResource("1_aob1w")
 
 [node name="HUD" type="CanvasLayer" parent="." unique_id=94042630]
+script = ExtResource("2_58i56")
 
 [node name="Control" type="Control" parent="HUD" unique_id=639387995]
 layout_mode = 3
@@ -35,6 +54,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 
 [node name="ScoreSection" type="MarginContainer" parent="HUD/Control" unique_id=312326136]
 unique_name_in_owner = true
@@ -46,14 +66,17 @@ offset_left = -32.0
 offset_right = 32.0
 offset_bottom = 31.0
 grow_horizontal = 2
+mouse_filter = 2
 theme_override_constants/margin_top = 8
 
 [node name="PanelContainer" type="PanelContainer" parent="HUD/Control/ScoreSection" unique_id=770243453]
 layout_mode = 2
 size_flags_vertical = 4
+mouse_filter = 2
 
 [node name="HBoxContainer" type="HBoxContainer" parent="HUD/Control/ScoreSection/PanelContainer" unique_id=81927817]
 layout_mode = 2
+mouse_filter = 2
 theme_override_constants/separation = 0
 
 [node name="TextureRect" type="TextureRect" parent="HUD/Control/ScoreSection/PanelContainer/HBoxContainer" unique_id=1338633450]
@@ -61,6 +84,7 @@ custom_minimum_size = Vector2(18, 19)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
+mouse_filter = 2
 texture = ExtResource("1_awmvw")
 expand_mode = 1
 stretch_mode = 5
@@ -91,6 +115,7 @@ grow_vertical = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="HUD/Control/GameOverPanel" unique_id=573473388]
 layout_mode = 2
+mouse_filter = 0
 theme_override_constants/margin_left = 4
 theme_override_constants/margin_top = 4
 theme_override_constants/margin_right = 4
@@ -98,15 +123,18 @@ theme_override_constants/margin_bottom = 4
 
 [node name="VBoxContainer" type="VBoxContainer" parent="HUD/Control/GameOverPanel/MarginContainer" unique_id=1811995767]
 layout_mode = 2
+mouse_filter = 0
 
 [node name="HBoxContainer" type="HBoxContainer" parent="HUD/Control/GameOverPanel/MarginContainer/VBoxContainer" unique_id=1474336438]
 layout_mode = 2
+mouse_filter = 0
 
 [node name="TextureRect" type="TextureRect" parent="HUD/Control/GameOverPanel/MarginContainer/VBoxContainer/HBoxContainer" unique_id=503674544]
 custom_minimum_size = Vector2(26, 27)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
+mouse_filter = 0
 texture = ExtResource("1_awmvw")
 expand_mode = 1
 stretch_mode = 5
@@ -116,6 +144,7 @@ unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
+mouse_filter = 0
 text = "9999"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -135,16 +164,21 @@ expand_icon = true
 
 [node name="AreaSky" type="Parallax2D" parent="." unique_id=524857297]
 repeat_size = Vector2(640, 0)
+autoscroll = Vector2(-16, 0)
 repeat_times = 2
 
 [node name="Sprite2D" type="Sprite2D" parent="AreaSky" unique_id=1681298798]
+texture = SubResource("AtlasTexture_qwuey")
 centered = false
 
 [node name="AreaFarDetails" type="Parallax2D" parent="." unique_id=1840295981]
 repeat_size = Vector2(640, 0)
+autoscroll = Vector2(-32, 0)
 repeat_times = 2
 
 [node name="Sprite2D" type="Sprite2D" parent="AreaFarDetails" unique_id=1490180824]
+texture = SubResource("AtlasTexture_aob1w")
+centered = false
 
 [node name="AreaCloseDetails" type="Parallax2D" parent="." unique_id=119477287]
 repeat_size = Vector2(640, 0)
@@ -157,6 +191,7 @@ position = Vector2(64, 160)
 collision_layer = 3
 collision_mask = 3
 motion_mode = 1
+script = ExtResource("5_o8ewf")
 
 [node name="Body" type="Sprite2D" parent="Bird" unique_id=1234577315]
 texture = SubResource("AtlasTexture_hyb4l")
@@ -186,13 +221,9 @@ autoscroll = Vector2(-200, 0)
 repeat_times = 2
 
 [node name="Sprite2D" type="Sprite2D" parent="Floor/Parallax2D" unique_id=1233289217]
-texture = ExtResource("2_hyb4l")
+texture = SubResource("AtlasTexture_2m18y")
 
 [node name="FlootHitbox" type="CollisionShape2D" parent="Floor" unique_id=1387019897]
-shape = SubResource("RectangleShape2D_awmvw")
-
-[node name="CeilingHitbox" type="CollisionShape2D" parent="Floor" unique_id=1697140347]
-position = Vector2(0, -320)
 shape = SubResource("RectangleShape2D_awmvw")
 
 [node name="AreaDecor" type="Parallax2D" parent="." unique_id=1073398869]
@@ -200,3 +231,11 @@ repeat_size = Vector2(640, 0)
 repeat_times = 2
 
 [node name="Sprite2D" type="Sprite2D" parent="AreaDecor" unique_id=918945086]
+
+[node name="Ceiling" type="StaticBody2D" parent="." unique_id=1263469236]
+position = Vector2(320, -16)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Ceiling" unique_id=1514981363]
+shape = SubResource("RectangleShape2D_awmvw")
+
+[connection signal="pressed" from="HUD/Control/GameOverPanel/MarginContainer/VBoxContainer/ReplayButton" to="HUD" method="_on_replay_button_pressed"]

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ba28moah8yi2d"
-path="res://.godot/imported/FarmFloor.png-0b26c8f15c2723f7e1ad8e5e8f4866bb.ctex"
+uid="uid://bdsaxr2aq7x4e"
+path="res://.godot/imported/Berry.png-1e02cebbe085bea220a391f13e26f020.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Floors/FarmFloor.png"
-dest_files=["res://.godot/imported/FarmFloor.png-0b26c8f15c2723f7e1ad8e5e8f4866bb.ctex"]
+source_file="res://Assets/Graphics/Berry.png"
+dest_files=["res://.godot/imported/Berry.png-1e02cebbe085bea220a391f13e26f020.ctex"]
 
 [params]
 
