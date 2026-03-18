@@ -36,11 +36,11 @@ const floor_rects : Array[Rect2] = [
 	Rect2(0, 128, 640, 32),
 ]
 # Game state
-var points := 0
+var points := 48
 var last_area := 0
 # Animations
 var tween1 : Tween
-const time1 := 0.5
+const time1 := 1.5
 
 func _ready():
 	stop_parallaxes()
@@ -110,11 +110,14 @@ func set_parallax_area(area:int,instant:bool = false) -> void:
 	if tween1:
 		tween1.kill()
 	tween1 = create_tween()
-	tween1.tween_property(sky_sprite,"texture:region", area_rects[area], time1)
-	tween1.tween_property(far_sprite,"texture:region", area_rects[area], time1)
-	tween1.tween_property(close_sprite,"texture:region", area_rects[area], time1)
-	tween1.tween_property(floor_sprite,"texture:region", floor_rects[area], time1)
-	tween1.tween_property(decor_sprite,"texture:region", area_rects[area], time1)
+	tween1.set_parallel()
+	tween1.set_trans(Tween.TRANS_BACK)
+	tween1.set_ease(Tween.EASE_OUT)
+	tween1.tween_property(sky_sprite,"texture:region", area_rects[area], time1).set_delay(1)
+	tween1.tween_property(far_sprite,"texture:region", area_rects[area], time1).set_delay(2)
+	tween1.tween_property(close_sprite,"texture:region", area_rects[area], time1).set_delay(3)
+	tween1.tween_property(floor_sprite,"texture:region", floor_rects[area], time1).set_delay(4)
+	tween1.tween_property(decor_sprite,"texture:region", area_rects[area], time1).set_delay(5)
 
 func stop_parallaxes() -> void:
 	sky_parallax.autoscroll.x = 0

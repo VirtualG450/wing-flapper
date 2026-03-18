@@ -230,6 +230,7 @@ repeat_times = 2
 
 [node name="AreaSprite" type="Sprite2D" parent="AreaDecor" unique_id=918945086]
 texture = SubResource("AtlasTexture_ffosx")
+centered = false
 
 [node name="Ceiling" type="StaticBody2D" parent="." unique_id=1263469236]
 position = Vector2(320, -16)
