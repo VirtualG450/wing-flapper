@@ -9,6 +9,9 @@
 [ext_resource type="Texture2D" uid="uid://ckgihqhfnndih" path="res://Assets/Graphics/FarDetailsAtlas.png" id="4_7vkth"]
 [ext_resource type="Texture2D" uid="uid://dwuo17ot1xbh2" path="res://Assets/Graphics/FloorAtlas.png" id="4_gk1q0"]
 [ext_resource type="Script" uid="uid://bbj4k3asr6vwe" path="res://Script/bird.gd" id="5_o8ewf"]
+[ext_resource type="Texture2D" uid="uid://i04bfpktg7by" path="res://Assets/Graphics/CloseDetailsAtlas.png" id="7_ppc7m"]
+[ext_resource type="Script" uid="uid://c3un3y1t8u2ag" path="res://Script/wall_manager.gd" id="9_58i56"]
+[ext_resource type="Texture2D" uid="uid://imfy8enitm2u" path="res://Assets/Graphics/AreaDecorAtlas.png" id="12_l7tus"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qwuey"]
 atlas = ExtResource("3_2m18y")
@@ -18,21 +21,16 @@ region = Rect2(0, 0, 640, 320)
 atlas = ExtResource("4_7vkth")
 region = Rect2(0, 0, 640, 320)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_58i56"]
+atlas = ExtResource("7_ppc7m")
+region = Rect2(0, 0, 640, 320)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_hyb4l"]
 atlas = ExtResource("1_rqi4g")
 region = Rect2(64, 0, 64, 32)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_hyb4l"]
-size = Vector2(58, 22)
-
-[sub_resource type="Gradient" id="Gradient_rqi4g"]
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_hyb4l"]
-gradient = SubResource("Gradient_rqi4g")
-width = 32
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_i88v6"]
-size = Vector2(32, 96)
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ppc7m"]
+height = 32.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_2m18y"]
 atlas = ExtResource("4_gk1q0")
@@ -40,6 +38,10 @@ region = Rect2(0, 0, 640, 32)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_awmvw"]
 size = Vector2(640, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ffosx"]
+atlas = ExtResource("12_l7tus")
+region = Rect2(0, 0, 640, 320)
 
 [node name="GameRoot" type="Node2D" unique_id=1650920252]
 script = ExtResource("1_aob1w")
@@ -167,7 +169,7 @@ repeat_size = Vector2(640, 0)
 autoscroll = Vector2(-16, 0)
 repeat_times = 2
 
-[node name="Sprite2D" type="Sprite2D" parent="AreaSky" unique_id=1681298798]
+[node name="SkySprite" type="Sprite2D" parent="AreaSky" unique_id=1681298798]
 texture = SubResource("AtlasTexture_qwuey")
 centered = false
 
@@ -176,7 +178,7 @@ repeat_size = Vector2(640, 0)
 autoscroll = Vector2(-32, 0)
 repeat_times = 2
 
-[node name="Sprite2D" type="Sprite2D" parent="AreaFarDetails" unique_id=1490180824]
+[node name="FarSprite" type="Sprite2D" parent="AreaFarDetails" unique_id=1490180824]
 texture = SubResource("AtlasTexture_aob1w")
 centered = false
 
@@ -184,11 +186,16 @@ centered = false
 repeat_size = Vector2(640, 0)
 repeat_times = 2
 
-[node name="Sprite2D" type="Sprite2D" parent="AreaCloseDetails" unique_id=1889126040]
+[node name="CloseSprite" type="Sprite2D" parent="AreaCloseDetails" unique_id=1889126040]
+texture = SubResource("AtlasTexture_58i56")
+centered = false
+
+[node name="WallManager" type="Node2D" parent="." unique_id=1948477031]
+script = ExtResource("9_58i56")
 
 [node name="Bird" type="CharacterBody2D" parent="." unique_id=751255335]
 position = Vector2(64, 160)
-collision_layer = 3
+collision_layer = 4
 collision_mask = 3
 motion_mode = 1
 script = ExtResource("5_o8ewf")
@@ -197,18 +204,9 @@ script = ExtResource("5_o8ewf")
 texture = SubResource("AtlasTexture_hyb4l")
 
 [node name="Hitbox" type="CollisionShape2D" parent="Bird" unique_id=1606612235]
-shape = SubResource("RectangleShape2D_hyb4l")
-
-[node name="WallManager" type="Node2D" parent="." unique_id=1948477031]
-
-[node name="Wall1" type="StaticBody2D" parent="WallManager" unique_id=916139757 groups=["Walls"]]
-position = Vector2(640, 160)
-
-[node name="WallSprite" type="Sprite2D" parent="WallManager/Wall1" unique_id=187182178]
-texture = SubResource("GradientTexture2D_hyb4l")
-
-[node name="TopHitbox" type="CollisionShape2D" parent="WallManager/Wall1" unique_id=1539289768]
-shape = SubResource("RectangleShape2D_i88v6")
+position = Vector2(0, -0.5)
+rotation = 1.5707964
+shape = SubResource("CapsuleShape2D_ppc7m")
 
 [node name="Floor" type="StaticBody2D" parent="." unique_id=165317536]
 unique_name_in_owner = true
@@ -220,7 +218,7 @@ repeat_size = Vector2(640, 0)
 autoscroll = Vector2(-200, 0)
 repeat_times = 2
 
-[node name="Sprite2D" type="Sprite2D" parent="Floor/Parallax2D" unique_id=1233289217]
+[node name="FloorSprite" type="Sprite2D" parent="Floor/Parallax2D" unique_id=1233289217]
 texture = SubResource("AtlasTexture_2m18y")
 
 [node name="FlootHitbox" type="CollisionShape2D" parent="Floor" unique_id=1387019897]
@@ -230,7 +228,8 @@ shape = SubResource("RectangleShape2D_awmvw")
 repeat_size = Vector2(640, 0)
 repeat_times = 2
 
-[node name="Sprite2D" type="Sprite2D" parent="AreaDecor" unique_id=918945086]
+[node name="AreaSprite" type="Sprite2D" parent="AreaDecor" unique_id=918945086]
+texture = SubResource("AtlasTexture_ffosx")
 
 [node name="Ceiling" type="StaticBody2D" parent="." unique_id=1263469236]
 position = Vector2(320, -16)

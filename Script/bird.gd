@@ -7,7 +7,7 @@ class_name Bird
 @onready var bird_sprite : Sprite2D = $Body
 
 # Movement settings
-const jump_force := 8.0
+const jump_force := 6.0
 const fall_force := 16.0
 var is_dead := false
 # Animations
@@ -36,7 +36,7 @@ func disable_bird() -> void:
 # Movement
 
 func _unhandled_input(event):
-	if event.is_action_pressed("bird_jump"):
+	if event.is_action_pressed("bird_jump") and not is_dead:
 		velocity.y = -jump_force
 		_wing_flap()
 
@@ -44,6 +44,7 @@ func _physics_process(delta):
 	velocity.y += fall_force * delta
 	velocity.y = clampf(velocity.y, -fall_force * 2, fall_force * 2)
 	_check_collider( move_and_collide(velocity) )
+	look_at(global_position + Vector2(10, velocity.y))
 
 func _check_collider(collision:KinematicCollision2D) -> void:
 	if not collision:
@@ -52,6 +53,7 @@ func _check_collider(collision:KinematicCollision2D) -> void:
 	if body == floor_body or body.is_in_group("Walls"):
 		disable_bird()
 		game_manager.game_over()
+		is_dead = true
 
 # Animations
 
