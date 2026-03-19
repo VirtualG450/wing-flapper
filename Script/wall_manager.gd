@@ -6,7 +6,7 @@ var wall_nodes : Array[StaticBody2D] = []
 var wall_scene : PackedScene = preload("uid://3xu8bkear3fj")
 # Wall behaviour
 const wall_speed := 160.0
-const y_range : Array[float] = [58, 210]
+const y_range : Array[float] = [62, 210]
 const wall_spacing := 220.0
 var last_wall : StaticBody2D
 const wall_rects : Array[Rect2] = [
