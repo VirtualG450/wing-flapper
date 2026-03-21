@@ -13,6 +13,15 @@
 [ext_resource type="Script" uid="uid://c3un3y1t8u2ag" path="res://Script/wall_manager.gd" id="9_58i56"]
 [ext_resource type="Texture2D" uid="uid://imfy8enitm2u" path="res://Assets/Graphics/AreaDecorAtlas.png" id="12_l7tus"]
 
+[sub_resource type="Gradient" id="Gradient_l7tus"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_ffosx"]
+gradient = SubResource("Gradient_l7tus")
+width = 640
+height = 320
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_qwuey"]
 atlas = ExtResource("3_2m18y")
 region = Rect2(0, 0, 640, 320)
@@ -45,6 +54,10 @@ region = Rect2(0, 0, 640, 320)
 
 [node name="GameRoot" type="Node2D" unique_id=1650920252]
 script = ExtResource("1_aob1w")
+
+[node name="BackColor" type="Sprite2D" parent="." unique_id=881126078]
+texture = SubResource("GradientTexture2D_ffosx")
+centered = false
 
 [node name="HUD" type="CanvasLayer" parent="." unique_id=94042630]
 script = ExtResource("2_58i56")
