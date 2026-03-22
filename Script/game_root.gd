@@ -17,9 +17,6 @@ class_name GameManager
 @onready var floor_parallax : Parallax2D = $Floor/Parallax2D
 @onready var floor_sprite : Sprite2D = $Floor/Parallax2D/FloorSprite
 
-@onready var decor_parallax : Parallax2D = $AreaDecor
-@onready var decor_sprite : Sprite2D = $AreaDecor/AreaSprite
-
 # Parallax references
 const area_rects : Array[Rect2] = [
 	Rect2(0, 0, 640, 320),
@@ -36,7 +33,7 @@ const floor_rects : Array[Rect2] = [
 	Rect2(0, 128, 640, 32),
 ]
 # Game state
-var points := 152
+var points := 352
 var last_area := 0
 # Animations
 var tween1 : Tween
@@ -93,7 +90,6 @@ func start_parallaxes() -> void:
 	sky_parallax.autoscroll.x = -16
 	far_parallax.autoscroll.x = -32
 	close_parallax.autoscroll.x = -48
-	decor_parallax.autoscroll.x = -64
 	floor_parallax.autoscroll.x = -200
 
 ## Changes the parallax environment aera [Farm, Forest, Temple, Sky, Space]
@@ -104,7 +100,6 @@ func set_parallax_area(area:int,instant:bool = false) -> void:
 		far_sprite.texture.region = area_rects[area]
 		close_sprite.texture.region = area_rects[area]
 		floor_sprite.texture.region = floor_rects[area]
-		decor_sprite.texture.region = area_rects[area]
 		return
 	# Change parallaxes with animations
 	if tween1:
@@ -116,7 +111,6 @@ func set_parallax_area(area:int,instant:bool = false) -> void:
 	tween1.tween_property(far_sprite,"modulate", Color.TRANSPARENT, time1).set_delay(1)
 	tween1.tween_property(close_sprite,"modulate", Color.TRANSPARENT, time1).set_delay(2)
 	tween1.tween_property(floor_sprite,"modulate", Color.TRANSPARENT, time1).set_delay(3)
-	tween1.tween_property(decor_sprite,"modulate", Color.TRANSPARENT, time1).set_delay(4)
 	
 	tween1.set_trans(Tween.TRANS_CUBIC)
 	tween1.set_ease(Tween.EASE_OUT)
@@ -124,7 +118,6 @@ func set_parallax_area(area:int,instant:bool = false) -> void:
 	tween1.tween_property(far_sprite,"texture:region", area_rects[area], time1).set_delay(time1 + 1)
 	tween1.tween_property(close_sprite,"texture:region", area_rects[area], time1).set_delay(time1 + 2)
 	tween1.tween_property(floor_sprite,"texture:region", floor_rects[area], time1).set_delay(time1 + 3)
-	tween1.tween_property(decor_sprite,"texture:region", area_rects[area], time1).set_delay(time1 + 4)
 	
 	tween1.set_trans(Tween.TRANS_LINEAR)
 	tween1.set_ease(Tween.EASE_IN_OUT)
@@ -132,11 +125,9 @@ func set_parallax_area(area:int,instant:bool = false) -> void:
 	tween1.tween_property(far_sprite,"modulate", Color.WHITE, 1.0).set_delay(time1 * 2 + 1)
 	tween1.tween_property(close_sprite,"modulate", Color.WHITE, 1.0).set_delay(time1 * 2 + 2)
 	tween1.tween_property(floor_sprite,"modulate", Color.WHITE, 1.0).set_delay(time1 * 2 + 3)
-	tween1.tween_property(decor_sprite,"modulate", Color.WHITE, 1.0).set_delay(time1 * 2 + 4)
 
 func stop_parallaxes() -> void:
 	sky_parallax.autoscroll.x = 0
 	far_parallax.autoscroll.x = 0
 	close_parallax.autoscroll.x = 0
-	decor_parallax.autoscroll.x = 0
 	floor_parallax.autoscroll.x = 0

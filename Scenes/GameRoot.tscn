@@ -11,7 +11,6 @@
 [ext_resource type="Script" uid="uid://bbj4k3asr6vwe" path="res://Script/bird.gd" id="5_o8ewf"]
 [ext_resource type="Texture2D" uid="uid://i04bfpktg7by" path="res://Assets/Graphics/CloseDetailsAtlas.png" id="7_ppc7m"]
 [ext_resource type="Script" uid="uid://c3un3y1t8u2ag" path="res://Script/wall_manager.gd" id="9_58i56"]
-[ext_resource type="Texture2D" uid="uid://imfy8enitm2u" path="res://Assets/Graphics/AreaDecorAtlas.png" id="12_l7tus"]
 
 [sub_resource type="Gradient" id="Gradient_l7tus"]
 offsets = PackedFloat32Array(0)
@@ -47,10 +46,6 @@ region = Rect2(0, 0, 640, 32)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_awmvw"]
 size = Vector2(640, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ffosx"]
-atlas = ExtResource("12_l7tus")
-region = Rect2(0, 0, 640, 320)
 
 [node name="GameRoot" type="Node2D" unique_id=1650920252]
 script = ExtResource("1_aob1w")
@@ -236,14 +231,6 @@ texture = SubResource("AtlasTexture_2m18y")
 
 [node name="FlootHitbox" type="CollisionShape2D" parent="Floor" unique_id=1387019897]
 shape = SubResource("RectangleShape2D_awmvw")
-
-[node name="AreaDecor" type="Parallax2D" parent="." unique_id=1073398869]
-repeat_size = Vector2(640, 0)
-repeat_times = 2
-
-[node name="AreaSprite" type="Sprite2D" parent="AreaDecor" unique_id=918945086]
-texture = SubResource("AtlasTexture_ffosx")
-centered = false
 
 [node name="Ceiling" type="StaticBody2D" parent="." unique_id=1263469236]
 position = Vector2(320, -16)
