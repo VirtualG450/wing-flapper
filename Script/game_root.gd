@@ -33,7 +33,7 @@ const floor_rects : Array[Rect2] = [
 	Rect2(0, 128, 640, 32),
 ]
 # Game state
-var points := 352
+var points := 0
 var last_area := 0
 # Animations
 var tween1 : Tween
@@ -92,7 +92,7 @@ func start_parallaxes() -> void:
 	close_parallax.autoscroll.x = -48
 	floor_parallax.autoscroll.x = -200
 
-## Changes the parallax environment aera [Farm, Forest, Temple, Sky, Space]
+## Changes the parallax environment aera [Field, Forest, Temple, Sky, OldCity]
 func set_parallax_area(area:int,instant:bool = false) -> void:
 	last_area = area
 	if instant:
