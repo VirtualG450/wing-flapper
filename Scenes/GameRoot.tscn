@@ -1,11 +1,11 @@
 [gd_scene format=3 uid="uid://cxpqmy7cfpy0i"]
 
 [ext_resource type="Script" uid="uid://uinh0cbcxj24" path="res://Script/game_root.gd" id="1_aob1w"]
-[ext_resource type="Texture2D" uid="uid://bdsaxr2aq7x4e" path="res://Assets/Graphics/Berry.png" id="1_awmvw"]
 [ext_resource type="Texture2D" uid="uid://drhn5tl7wuopk" path="res://Assets/Graphics/Bird.png" id="1_rqi4g"]
 [ext_resource type="Script" uid="uid://bpdl3gbhopbks" path="res://Script/hud.gd" id="2_58i56"]
 [ext_resource type="Texture2D" uid="uid://bttcpydnxkwb2" path="res://Assets/Graphics/PlayButton.png" id="2_gk1q0"]
 [ext_resource type="Texture2D" uid="uid://csg03y1ntlv32" path="res://Assets/Graphics/SkyAtlas.png" id="3_2m18y"]
+[ext_resource type="Texture2D" uid="uid://cbn5kp7b4rsix" path="res://Assets/Graphics/RecordIcon.png" id="3_ppc7m"]
 [ext_resource type="Texture2D" uid="uid://ckgihqhfnndih" path="res://Assets/Graphics/FarDetailsAtlas.png" id="4_7vkth"]
 [ext_resource type="Texture2D" uid="uid://dwuo17ot1xbh2" path="res://Assets/Graphics/FloorAtlas.png" id="4_gk1q0"]
 [ext_resource type="Script" uid="uid://bbj4k3asr6vwe" path="res://Script/bird.gd" id="5_o8ewf"]
@@ -72,8 +72,8 @@ layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -32.0
-offset_right = 32.0
+offset_left = -24.0
+offset_right = 24.0
 offset_bottom = 31.0
 grow_horizontal = 2
 mouse_filter = 2
@@ -84,26 +84,12 @@ layout_mode = 2
 size_flags_vertical = 4
 mouse_filter = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="HUD/Control/ScoreSection/PanelContainer" unique_id=81927817]
-layout_mode = 2
-mouse_filter = 2
-theme_override_constants/separation = 0
-
-[node name="TextureRect" type="TextureRect" parent="HUD/Control/ScoreSection/PanelContainer/HBoxContainer" unique_id=1338633450]
-custom_minimum_size = Vector2(18, 19)
+[node name="PointCounter" type="Label" parent="HUD/Control/ScoreSection/PanelContainer" unique_id=1544615451]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(48, 16)
 layout_mode = 2
 size_flags_horizontal = 4
-size_flags_vertical = 4
-mouse_filter = 2
-texture = ExtResource("1_awmvw")
-expand_mode = 1
-stretch_mode = 5
-
-[node name="PointCounter" type="Label" parent="HUD/Control/ScoreSection/PanelContainer/HBoxContainer" unique_id=1544615451]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(64, 16)
-layout_mode = 2
-text = "999"
+text = "----"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -134,39 +120,82 @@ theme_override_constants/margin_bottom = 4
 [node name="VBoxContainer" type="VBoxContainer" parent="HUD/Control/GameOverPanel/MarginContainer" unique_id=1811995767]
 layout_mode = 2
 mouse_filter = 0
+theme_override_constants/separation = 1
 
-[node name="HBoxContainer" type="HBoxContainer" parent="HUD/Control/GameOverPanel/MarginContainer/VBoxContainer" unique_id=1474336438]
+[node name="RecordSection" type="HBoxContainer" parent="HUD/Control/GameOverPanel/MarginContainer/VBoxContainer" unique_id=969304726]
+unique_name_in_owner = true
 layout_mode = 2
-mouse_filter = 0
 
-[node name="TextureRect" type="TextureRect" parent="HUD/Control/GameOverPanel/MarginContainer/VBoxContainer/HBoxContainer" unique_id=503674544]
-custom_minimum_size = Vector2(26, 27)
+[node name="TextureRect" type="TextureRect" parent="HUD/Control/GameOverPanel/MarginContainer/VBoxContainer/RecordSection" unique_id=1541465769]
+custom_minimum_size = Vector2(22, 22)
 layout_mode = 2
 size_flags_horizontal = 4
-size_flags_vertical = 4
-mouse_filter = 0
-texture = ExtResource("1_awmvw")
+texture = ExtResource("3_ppc7m")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="GameOverScore" type="Label" parent="HUD/Control/GameOverPanel/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1012917071]
+[node name="RecordScoreLabel" type="Label" parent="HUD/Control/GameOverPanel/MarginContainer/VBoxContainer/RecordSection" unique_id=952671235]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 22)
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_vertical = 1
-mouse_filter = 0
-text = "9999"
+text = "----"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="TextureRect2" type="TextureRect" parent="HUD/Control/GameOverPanel/MarginContainer/VBoxContainer/RecordSection" unique_id=779851830]
+custom_minimum_size = Vector2(22, 22)
+layout_mode = 2
+size_flags_horizontal = 4
+texture = ExtResource("3_ppc7m")
+expand_mode = 1
+stretch_mode = 5
 
 [node name="HSeparator" type="HSeparator" parent="HUD/Control/GameOverPanel/MarginContainer/VBoxContainer" unique_id=260393991]
 layout_mode = 2
 theme_override_constants/separation = 1
 
+[node name="GameScore" type="HBoxContainer" parent="HUD/Control/GameOverPanel/MarginContainer/VBoxContainer" unique_id=1474336438]
+layout_mode = 2
+mouse_filter = 0
+
+[node name="TextureRect" type="TextureRect" parent="HUD/Control/GameOverPanel/MarginContainer/VBoxContainer/GameScore" unique_id=503674544]
+custom_minimum_size = Vector2(22, 22)
+layout_mode = 2
+size_flags_horizontal = 4
+mouse_filter = 0
+texture = ExtResource("2_gk1q0")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="GameOverScore" type="Label" parent="HUD/Control/GameOverPanel/MarginContainer/VBoxContainer/GameScore" unique_id=1012917071]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 22)
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 0
+text = "----"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TextureRect2" type="TextureRect" parent="HUD/Control/GameOverPanel/MarginContainer/VBoxContainer/GameScore" unique_id=699932324]
+custom_minimum_size = Vector2(22, 22)
+layout_mode = 2
+size_flags_horizontal = 4
+mouse_filter = 0
+texture = ExtResource("2_gk1q0")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="HSeparator2" type="HSeparator" parent="HUD/Control/GameOverPanel/MarginContainer/VBoxContainer" unique_id=1715768151]
+layout_mode = 2
+theme_override_constants/separation = 1
+
 [node name="ReplayButton" type="Button" parent="HUD/Control/GameOverPanel/MarginContainer/VBoxContainer" unique_id=2072262368]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(32, 32)
+custom_minimum_size = Vector2(64, 32)
 layout_mode = 2
+size_flags_horizontal = 4
 size_flags_vertical = 4
 icon = ExtResource("2_gk1q0")
 icon_alignment = 1

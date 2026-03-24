@@ -3,7 +3,12 @@ class_name HUDLayer
 
 @onready var game_manager : GameManager = $".."
 @onready var main_hud_node : Control = $Control
+
+@onready var score_section : MarginContainer = %ScoreSection
 @onready var point_counter : Label = %PointCounter
+
+@onready var record_section : HBoxContainer = %RecordSection
+@onready var record_score_label : Label = %RecordScoreLabel
 
 @onready var game_over_panel : PanelContainer = %GameOverPanel
 @onready var game_over_score : Label = %GameOverScore
@@ -20,6 +25,7 @@ func _ready():
 
 func initial_state() -> void:
 	# Point counter
+	score_section.pivot_offset_ratio = Vector2(0.5, 0.5)
 	point_counter.text = str(0)
 	# Game over panel
 	game_over_panel.hide()
@@ -29,21 +35,42 @@ func initial_state() -> void:
 # Show / Hide animations
 
 func show_anim() -> void:
+	# Check if new record was made
+	var new_record := false
+	var new_points := game_manager.points
+	if new_points > game_manager.record:
+		new_record = true
+		game_manager.record = new_points
+		game_manager.save_record()
+	game_over_score.text = "0"
+	# Restart animation tweener
 	if tween1:
 		tween1.kill()
 	tween1 = create_tween()
+	tween1.set_parallel()
+	# Hide point couter
+	tween1.tween_property(score_section,"visible", false, time1)
+	tween1.tween_property(score_section,"scale", Vector2.ZERO, time1)
+	# Show game over panel
 	tween1.tween_property(game_over_panel,"visible", true, 0)
 	tween1.tween_property(game_over_panel,"scale", Vector2(1,1), time1)
-	tween1.parallel().tween_property(game_over_score,"text", str(game_manager.points), time1)
-	tween1.tween_property(replay_button,"disabled", false, 0)
+	# Smooth value change for game over point counter and record when needed
+	tween1.tween_method(_game_over_counter ,0, new_points, time1 + 1.0)
+	if new_record:
+		tween1.tween_method(_record_counter, 0, new_points, time1 + 1.0)
+	tween1.tween_property(replay_button,"disabled", false, time1)
 
 func hide_anim() -> void:
 	if tween1:
 		tween1.kill()
 	tween1 = create_tween()
 	tween1.set_parallel()
+	# Hide game over panel
 	tween1.tween_property(game_over_panel,"visible", false, time1)
 	tween1.tween_property(game_over_panel,"scale", Vector2.ZERO, time1)
+	# Show point coutner
+	tween1.tween_property(score_section,"visible", true, 0)
+	tween1.tween_property(score_section,"scale", Vector2(1,1), time1)
 
 # Replay button
 
@@ -54,7 +81,11 @@ func _on_replay_button_pressed():
 
 # Point counter
 
-func update_point_coutner() -> void:
+func update_point_counter() -> void:
 	point_counter.text = str(game_manager.points)
 
-#
+func _game_over_counter(new_value:int) -> void:
+	game_over_score.text = str(new_value)
+
+func _record_counter(new_value:int) -> void:
+	record_score_label.text = str(new_value)

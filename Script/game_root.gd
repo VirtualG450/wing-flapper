@@ -34,12 +34,14 @@ const floor_rects : Array[Rect2] = [
 ]
 # Game state
 var points := 0
+var record := 0
 var last_area := 0
 # Animations
 var tween1 : Tween
 const time1 := 1.0
 
 func _ready():
+	_load_record()
 	stop_parallaxes()
 
 # Wait for initial press to enable the bird, only at game start.
@@ -63,7 +65,7 @@ func game_over() -> void:
 func restart_game() -> void:
 	points = 0
 	last_area = 0
-	hud_node.update_point_coutner()
+	hud_node.update_point_counter()
 	wall_manager.restart_walls()
 	wall_manager.start_walls()
 	bird_node.restart_bird()
@@ -73,7 +75,7 @@ func restart_game() -> void:
 
 func point_scored() -> void:
 	points += 1
-	hud_node.update_point_coutner()
+	hud_node.update_point_counter()
 	# Change the parallax to the relevant area
 	if points >= 50 and points < 150 and last_area != 1:
 		set_parallax_area(1)
@@ -81,7 +83,7 @@ func point_scored() -> void:
 		set_parallax_area(2)
 	elif points >= 300 and points < 450 and last_area != 3:
 		set_parallax_area(3)
-	elif points >= 450 and points < 600 and last_area != 4:
+	elif points >= 450 and last_area != 4:
 		set_parallax_area(4)
 
 # Parallax control
@@ -131,3 +133,33 @@ func stop_parallaxes() -> void:
 	far_parallax.autoscroll.x = 0
 	close_parallax.autoscroll.x = 0
 	floor_parallax.autoscroll.x = 0
+
+# Record persistence
+
+func _load_record() -> void:
+	# Case 1 -> No previous record file, start at 0
+	if not FileAccess.file_exists("user://record.save"):
+		print("No previous record file found, creating new one.")
+		_create_record_file()
+		record = 0
+		return
+	# Case 2 -> Previous record file found, load value.
+	else:
+		var old_save := FileAccess.open("user://record.save",FileAccess.READ)
+		record = old_save.get_64()
+		old_save.close()
+		print("Loaded previous record: ",record)
+	
+	# Update HUD record
+	hud_node.record_score_label.text = str(record)
+
+func save_record() -> void:
+	var save_file := FileAccess.open("user://record.save",FileAccess.WRITE)
+	save_file.store_64(record)
+	save_file.close()
+	print("Saved record: ",record)
+
+func _create_record_file() -> void:
+	var new_file := FileAccess.open("user://record.save",FileAccess.WRITE)
+	new_file.store_64(0)
+	new_file.close()
