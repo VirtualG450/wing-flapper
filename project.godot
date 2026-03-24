@@ -11,10 +11,12 @@ config_version=5
 [application]
 
 config/name="WingFlapper"
-config/version="0.9.0"
+config/version="1.0.0"
 run/main_scene="uid://cxpqmy7cfpy0i"
 config/features=PackedStringArray("4.6", "GL Compatibility")
+boot_splash/bg_color=Color(0, 0.078431375, 0.105882354, 1)
 boot_splash/use_filter=false
+boot_splash/image="uid://dw8yjyx73k4fw"
 config/icon="uid://dw8yjyx73k4fw"
 
 [display]
