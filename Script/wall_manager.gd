@@ -97,4 +97,5 @@ func _retexture_wall(wall:StaticBody2D) -> void:
 # Bird pass
 
 func _bird_passed(_body:Node2D) -> void:
+	
 	game_manager.point_scored()

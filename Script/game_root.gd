@@ -4,6 +4,9 @@ class_name GameManager
 @onready var bird_node : Bird = $Bird
 @onready var hud_node : HUDLayer = $HUD
 @onready var wall_manager : WallManager = $WallManager
+# Sound players
+@onready var point_scored_player : AudioStreamPlayer = $PointScoredPlayer
+@onready var game_over_player : AudioStreamPlayer = $GameOverPlayer
 # Parallaxes
 @onready var sky_parallax : Parallax2D = $AreaSky
 @onready var sky_sprite : Sprite2D = $AreaSky/SkySprite
@@ -36,6 +39,7 @@ const floor_rects : Array[Rect2] = [
 var points := 0
 var record := 0
 var last_area := 0
+var just_started := false
 # Animations
 var tween1 : Tween
 const time1 := 1.0
@@ -57,6 +61,7 @@ func _unhandled_input(event):
 
 ## Show game over mini menu
 func game_over() -> void:
+	game_over_player.play()
 	hud_node.show_anim()
 	wall_manager.stop_walls()
 	stop_parallaxes()
@@ -72,8 +77,15 @@ func restart_game() -> void:
 	bird_node.enable_bird()
 	start_parallaxes()
 	set_parallax_area(0,true)
+	# This prevents scoring point right when a game is restarted by leaving the collided wall.
+	just_started = true
+	await get_tree().create_timer(1.0).timeout
+	just_started = false
 
 func point_scored() -> void:
+	if just_started:
+		return
+	point_scored_player.play()
 	points += 1
 	hud_node.update_point_counter()
 	# Change the parallax to the relevant area

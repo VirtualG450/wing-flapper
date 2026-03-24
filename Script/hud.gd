@@ -12,8 +12,11 @@ class_name HUDLayer
 
 @onready var game_over_panel : PanelContainer = %GameOverPanel
 @onready var game_over_score : Label = %GameOverScore
-@onready var replay_button : Button = %ReplayButton
 
+@onready var replay_button : Button = %ReplayButton
+@onready var sound_button : Button = %SoundButton
+
+var muted := false
 # Animations
 var tween1 : Tween
 const time1 := 0.2
@@ -72,12 +75,22 @@ func hide_anim() -> void:
 	tween1.tween_property(score_section,"visible", true, 0)
 	tween1.tween_property(score_section,"scale", Vector2(1,1), time1)
 
-# Replay button
+# Buttons
 
 func _on_replay_button_pressed():
 	replay_button.disabled = true
 	hide_anim()
 	game_manager.restart_game()
+
+func _on_sound_button_pressed():
+	sound_button.button_pressed = false
+	muted = !muted
+	if muted:
+		sound_button.icon.region.position.x = 32
+		AudioServer.set_bus_mute(0,true)
+	else:
+		sound_button.icon.region.position.x = 0
+		AudioServer.set_bus_mute(0,false)
 
 # Point counter
 

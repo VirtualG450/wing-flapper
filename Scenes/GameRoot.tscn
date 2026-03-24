@@ -8,9 +8,12 @@
 [ext_resource type="Texture2D" uid="uid://cbn5kp7b4rsix" path="res://Assets/Graphics/RecordIcon.png" id="3_ppc7m"]
 [ext_resource type="Texture2D" uid="uid://ckgihqhfnndih" path="res://Assets/Graphics/FarDetailsAtlas.png" id="4_7vkth"]
 [ext_resource type="Texture2D" uid="uid://dwuo17ot1xbh2" path="res://Assets/Graphics/FloorAtlas.png" id="4_gk1q0"]
+[ext_resource type="Texture2D" uid="uid://blpmt3ob8y6v" path="res://Assets/Graphics/SoundIcons.png" id="5_n0qs2"]
 [ext_resource type="Script" uid="uid://bbj4k3asr6vwe" path="res://Script/bird.gd" id="5_o8ewf"]
 [ext_resource type="Texture2D" uid="uid://i04bfpktg7by" path="res://Assets/Graphics/CloseDetailsAtlas.png" id="7_ppc7m"]
 [ext_resource type="Script" uid="uid://c3un3y1t8u2ag" path="res://Script/wall_manager.gd" id="9_58i56"]
+[ext_resource type="AudioStream" uid="uid://ciuk42jqffce3" path="res://Assets/Sounds/PointScored.wav" id="12_l7tus"]
+[ext_resource type="AudioStream" uid="uid://dkbk40u4gideh" path="res://Assets/Sounds/GameOver.wav" id="13_ffosx"]
 
 [sub_resource type="Gradient" id="Gradient_l7tus"]
 offsets = PackedFloat32Array(0)
@@ -20,6 +23,11 @@ colors = PackedColorArray(0, 0, 0, 1)
 gradient = SubResource("Gradient_l7tus")
 width = 640
 height = 320
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fgjt8"]
+atlas = ExtResource("5_n0qs2")
+region = Rect2(0, 0, 32, 32)
+filter_clip = true
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qwuey"]
 atlas = ExtResource("3_2m18y")
@@ -46,6 +54,12 @@ region = Rect2(0, 0, 640, 32)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_awmvw"]
 size = Vector2(640, 32)
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_ffosx"]
+playback_mode = 2
+random_pitch = 1.0028923
+streams_count = 1
+stream_0/stream = ExtResource("12_l7tus")
 
 [node name="GameRoot" type="Node2D" unique_id=1650920252]
 script = ExtResource("1_aob1w")
@@ -191,15 +205,26 @@ stretch_mode = 5
 layout_mode = 2
 theme_override_constants/separation = 1
 
-[node name="ReplayButton" type="Button" parent="HUD/Control/GameOverPanel/MarginContainer/VBoxContainer" unique_id=2072262368]
+[node name="Buttons" type="HBoxContainer" parent="HUD/Control/GameOverPanel/MarginContainer/VBoxContainer" unique_id=1770461657]
+layout_mode = 2
+
+[node name="ReplayButton" type="Button" parent="HUD/Control/GameOverPanel/MarginContainer/VBoxContainer/Buttons" unique_id=2072262368]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(64, 32)
 layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
+size_flags_horizontal = 3
 icon = ExtResource("2_gk1q0")
 icon_alignment = 1
 expand_icon = true
+
+[node name="SoundButton" type="Button" parent="HUD/Control/GameOverPanel/MarginContainer/VBoxContainer/Buttons" unique_id=1527995092]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+toggle_mode = true
+icon = SubResource("AtlasTexture_fgjt8")
 
 [node name="AreaSky" type="Parallax2D" parent="." unique_id=524857297]
 repeat_size = Vector2(640, 0)
@@ -267,4 +292,11 @@ position = Vector2(320, -16)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Ceiling" unique_id=1514981363]
 shape = SubResource("RectangleShape2D_awmvw")
 
-[connection signal="pressed" from="HUD/Control/GameOverPanel/MarginContainer/VBoxContainer/ReplayButton" to="HUD" method="_on_replay_button_pressed"]
+[node name="PointScoredPlayer" type="AudioStreamPlayer" parent="." unique_id=129014279]
+stream = SubResource("AudioStreamRandomizer_ffosx")
+
+[node name="GameOverPlayer" type="AudioStreamPlayer" parent="." unique_id=1055944014]
+stream = ExtResource("13_ffosx")
+
+[connection signal="pressed" from="HUD/Control/GameOverPanel/MarginContainer/VBoxContainer/Buttons/ReplayButton" to="HUD" method="_on_replay_button_pressed"]
+[connection signal="pressed" from="HUD/Control/GameOverPanel/MarginContainer/VBoxContainer/Buttons/SoundButton" to="HUD" method="_on_sound_button_pressed"]
