@@ -51,6 +51,7 @@ func show_anim() -> void:
 		tween1.kill()
 	tween1 = create_tween()
 	tween1.set_parallel()
+	tween1.tween_property(replay_button,"disabled", false, time1)
 	# Hide point couter
 	tween1.tween_property(score_section,"visible", false, time1)
 	tween1.tween_property(score_section,"scale", Vector2.ZERO, time1)
@@ -61,7 +62,6 @@ func show_anim() -> void:
 	tween1.tween_method(_game_over_counter ,0, new_points, time1 + 1.0)
 	if new_record:
 		tween1.tween_method(_record_counter, 0, new_points, time1 + 1.0)
-	tween1.tween_property(replay_button,"disabled", false, time1)
 
 func hide_anim() -> void:
 	if tween1:

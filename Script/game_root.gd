@@ -89,14 +89,10 @@ func point_scored() -> void:
 	points += 1
 	hud_node.update_point_counter()
 	# Change the parallax to the relevant area
-	if points >= 50 and points < 150 and last_area != 1:
-		set_parallax_area(1)
-	elif points >= 150 and points < 300 and last_area != 2:
-		set_parallax_area(2)
-	elif points >= 300 and points < 450 and last_area != 3:
-		set_parallax_area(3)
-	elif points >= 450 and last_area != 4:
-		set_parallax_area(4)
+	@warning_ignore("integer_division")
+	var area := clampi(points / 150, 0, 4)
+	if last_area != area:
+		set_parallax_area(area)
 
 # Parallax control
 

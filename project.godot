@@ -11,10 +11,11 @@ config_version=5
 [application]
 
 config/name="WingFlapper"
+config/version="0.9.0"
 run/main_scene="uid://cxpqmy7cfpy0i"
 config/features=PackedStringArray("4.6", "GL Compatibility")
 boot_splash/use_filter=false
-config/icon="res://icon.svg"
+config/icon="uid://dw8yjyx73k4fw"
 
 [display]
 
@@ -64,4 +65,5 @@ textures/canvas_textures/default_texture_filter=0
 rendering_device/driver.windows="d3d12"
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
+textures/vram_compression/import_etc2_astc=true
 2d/snap/snap_2d_vertices_to_pixel=true
